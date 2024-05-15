@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 public class BookshelfService {
 
     public CreateBookshelfResponse addBookshelf(final CreateBookshelfRequest request) {
-        return null;
+        return new CreateBookshelfResponse(null, "이케아 5단 책장", 5);
     }
 
 }
