@@ -6,10 +6,10 @@ public class CreateBookshelfResponse {
     private String name;
     private int floor;
 
-    public CreateBookshelfResponse(final Long id, final String name, final int floor) {
-        this.id = id;
-        this.name = name;
-        this.floor = floor;
+    public CreateBookshelfResponse(Bookshelf bookshelf) {
+        this.id = bookshelf.getId();
+        this.name = bookshelf.getName();
+        this.floor = bookshelf.getFloor();
     }
 
     public Long getId() {
