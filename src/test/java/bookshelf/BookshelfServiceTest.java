@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BookCategoryServiceTest {
+public class BookshelfServiceTest {
 
     @Test
     void 책장을_생성한다() {
