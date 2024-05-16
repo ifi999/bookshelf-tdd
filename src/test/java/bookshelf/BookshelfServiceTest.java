@@ -23,7 +23,6 @@ public class BookshelfServiceTest {
                 "이케아 5단 책장",
                 5
         );
-
         final CreateBookshelfRequest 한샘_책장_생성_요청 = new CreateBookshelfRequest(
                 "한샘 4단 책장",
                 4
@@ -62,13 +61,12 @@ public class BookshelfServiceTest {
     @Test
     void 존재하지_않는_책장ID로_조회할_경우_예외가_발생한다() {
         // given
-        bookshelfRepository.save(new Bookshelf("이케아 5단 책장", 5));
         final long 존재하지_않는_책장ID = -1L;
 
         // when
 
         // then
-        assertThatThrownBy(() ->bookshelfService.getBookshelf(존재하지_않는_책장ID))
+        assertThatThrownBy(() -> bookshelfService.getBookshelf(존재하지_않는_책장ID))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Invalid bookshelf id: " + 존재하지_않는_책장ID);
     }
