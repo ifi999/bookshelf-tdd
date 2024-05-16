@@ -18,7 +18,7 @@ public class BookshelfService {
     }
 
     public GetBookshelfResponse getBookshelf(Long id) {
-        return null;
+        return new GetBookshelfResponse(id, "이케아 5단 책장", 5);
     }
 
 }

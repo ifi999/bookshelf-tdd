@@ -6,6 +6,12 @@ public class GetBookshelfResponse {
     private String name;
     private int floor;
 
+    public GetBookshelfResponse(Long id, String name, int floor) {
+        this.id = id;
+        this.name = name;
+        this.floor = floor;
+    }
+
     public Long getId() {
         return id;
     }
