@@ -17,4 +17,8 @@ public class BookshelfService {
         return new CreateBookshelfResponse(bookshelf);
     }
 
+    public GetBookshelfResponse getBookshelf(Long id) {
+        return null;
+    }
+
 }
