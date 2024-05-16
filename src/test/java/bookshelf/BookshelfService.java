@@ -29,6 +29,6 @@ public class BookshelfService {
         return new GetBookshelfResponse(bookshelf);
     }
 
-    public void updateBookshelf(final Long id) {
+    public void updateBookshelf(UpdateBookshelfRequest request, final Long id) {
     }
 }

@@ -76,9 +76,10 @@ public class BookshelfServiceTest {
         // given
         final Bookshelf 이케아_5단_책장 = bookshelfRepository.save(new Bookshelf("이케아 5단 책장", 5));
         final Long 이케아_5단_책장_ID = 이케아_5단_책장.getId();
+        final UpdateBookshelfRequest 이케아_책장_변경_요청 = new UpdateBookshelfRequest("이케아 4단 책장", 4);
 
         // when
-        bookshelfService.updateBookshelf(이케아_5단_책장_ID);
+        bookshelfService.updateBookshelf(이케아_책장_변경_요청, 이케아_5단_책장_ID);
 
         // then
         assertThat(이케아_5단_책장.getName()).isEqualTo("이케아 4단 책장");
