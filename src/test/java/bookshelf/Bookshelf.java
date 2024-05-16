@@ -27,6 +27,14 @@ public class Bookshelf {
         this.floor = floor;
     }
 
+    public void updateBookshelfDetails(final String name, final int floor) {
+        Assert.hasText(name, "책장 이름은 필수값입니다.");
+        Assert.isTrue(floor > 0, "책장 층수는 0보다 커야합니다.");
+
+        this.name = name;
+        this.floor = floor;
+    }
+
     public Long getId() {
         return id;
     }

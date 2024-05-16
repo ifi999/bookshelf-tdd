@@ -1,7 +1,9 @@
 package bookshelf;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Service
 public class BookshelfService {
 
@@ -29,6 +31,10 @@ public class BookshelfService {
         return new GetBookshelfResponse(bookshelf);
     }
 
-    public void updateBookshelf(UpdateBookshelfRequest request, final Long id) {
+    public void updateBookshelf(final UpdateBookshelfRequest request, final Long id) {
+        final Bookshelf bookshelf = bookshelfRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid bookshelf id: " + id));
+
+        bookshelf.updateBookshelfDetails(request.getName(), request.getFloor());
     }
+
 }
