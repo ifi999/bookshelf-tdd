@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 public class BookshelfServiceTest {
@@ -56,6 +57,20 @@ public class BookshelfServiceTest {
         assertThat(이케아_책장_조회_응답.getFloor()).isEqualTo(이케아_5단_책장.getFloor());
         assertThat(한샘_책장_조회_응답.getName()).isEqualTo(한샘_4단_책장.getName());
         assertThat(한샘_책장_조회_응답.getFloor()).isEqualTo(한샘_4단_책장.getFloor());
+    }
+
+    @Test
+    void 존재하지_않는_책장ID로_조회할_경우_예외가_발생한다() {
+        // given
+        bookshelfRepository.save(new Bookshelf("이케아 5단 책장", 5));
+        final long 존재하지_않는_책장ID = -1L;
+
+        // when
+
+        // then
+        assertThatThrownBy(() ->bookshelfService.getBookshelf(존재하지_않는_책장ID))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Invalid bookshelf id: " + 존재하지_않는_책장ID);
     }
 
 }
