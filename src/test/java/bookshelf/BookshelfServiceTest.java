@@ -70,7 +70,7 @@ public class BookshelfServiceTest {
         // then
         assertThatThrownBy(() -> bookshelfService.getBookshelf(존재하지_않는_책장ID))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Invalid bookshelf id: " + 존재하지_않는_책장ID);
+                .hasMessage("Failed to get bookshelf. Invalid bookshelf id: " + 존재하지_않는_책장ID);
     }
 
     @Test
@@ -99,7 +99,7 @@ public class BookshelfServiceTest {
         // then
         assertThatThrownBy(() -> bookshelfService.updateBookshelf(이케아_책장_변경_요청, 존재하지_않는_책장ID))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Invalid bookshelf id: " + 존재하지_않는_책장ID);
+                .hasMessage("Failed to update bookshelf. Invalid bookshelf id: " + 존재하지_않는_책장ID);
     }
 
 }

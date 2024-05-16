@@ -26,13 +26,13 @@ public class BookshelfService {
     }
 
     public GetBookshelfResponse getBookshelf(final Long id) {
-        final Bookshelf bookshelf = bookshelfRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid bookshelf id: " + id));
+        final Bookshelf bookshelf = bookshelfRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Failed to get bookshelf. Invalid bookshelf id: " + id));
 
         return new GetBookshelfResponse(bookshelf);
     }
 
     public void updateBookshelf(final UpdateBookshelfRequest request, final Long id) {
-        final Bookshelf bookshelf = bookshelfRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid bookshelf id: " + id));
+        final Bookshelf bookshelf = bookshelfRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Failed to update bookshelf. Invalid bookshelf id: " + id));
 
         bookshelf.updateBookshelfDetails(request.getName(), request.getFloor());
     }
