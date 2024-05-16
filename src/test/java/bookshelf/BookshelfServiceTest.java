@@ -71,4 +71,18 @@ public class BookshelfServiceTest {
                 .hasMessage("Invalid bookshelf id: " + 존재하지_않는_책장ID);
     }
 
+    @Test
+    void 책장_정보를_수정한다() {
+        // given
+        final Bookshelf 이케아_5단_책장 = bookshelfRepository.save(new Bookshelf("이케아 5단 책장", 5));
+        final Long 이케아_5단_책장_ID = 이케아_5단_책장.getId();
+
+        // when
+        bookshelfService.updateBookshelf(이케아_5단_책장_ID);
+
+        // then
+        assertThat(이케아_5단_책장.getName()).isEqualTo("이케아 4단 책장");
+        assertThat(이케아_5단_책장.getFloor()).isEqualTo(4);
+    }
+
 }
