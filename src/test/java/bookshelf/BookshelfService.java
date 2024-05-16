@@ -5,6 +5,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookshelfService {
 
+    private final BookshelfRepository bookshelfRepository;
+
+    public BookshelfService(BookshelfRepository bookshelfRepository) {
+        this.bookshelfRepository = bookshelfRepository;
+    }
+
     public CreateBookshelfResponse addBookshelf(final CreateBookshelfRequest request) {
         final Bookshelf bookshelf = new Bookshelf(request.getName(), request.getFloor());
 
@@ -18,7 +24,9 @@ public class BookshelfService {
     }
 
     public GetBookshelfResponse getBookshelf(Long id) {
-        return new GetBookshelfResponse(id, "이케아 5단 책장", 5);
+        final Bookshelf bookshelf = bookshelfRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid bookshelf id: " + id));
+
+        return new GetBookshelfResponse(bookshelf);
     }
 
 }
