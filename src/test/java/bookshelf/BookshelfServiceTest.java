@@ -88,4 +88,18 @@ public class BookshelfServiceTest {
         assertThat(이케아_5단_책장.getFloor()).isEqualTo(4);
     }
 
+    @Test
+    void 존재하지_않는_책장ID로_수정할_경우_예외가_발생한다() {
+        // given
+        final UpdateBookshelfRequest 이케아_책장_변경_요청 = new UpdateBookshelfRequest("이케아 4단 책장", 4);
+        final long 존재하지_않는_책장ID = -1L;
+
+        // when
+
+        // then
+        assertThatThrownBy(() -> bookshelfService.updateBookshelf(이케아_책장_변경_요청, 존재하지_않는_책장ID))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Invalid bookshelf id: " + 존재하지_않는_책장ID);
+    }
+
 }
