@@ -23,10 +23,12 @@ public class BookshelfService {
         return new CreateBookshelfResponse(bookshelf);
     }
 
-    public GetBookshelfResponse getBookshelf(Long id) {
+    public GetBookshelfResponse getBookshelf(final Long id) {
         final Bookshelf bookshelf = bookshelfRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid bookshelf id: " + id));
 
         return new GetBookshelfResponse(bookshelf);
     }
 
+    public void updateBookshelf(final Long id) {
+    }
 }
