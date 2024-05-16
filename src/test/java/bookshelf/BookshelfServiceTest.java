@@ -44,13 +44,18 @@ public class BookshelfServiceTest {
         // given
         final Bookshelf 이케아_5단_책장 = bookshelfRepository.save(new Bookshelf("이케아 5단 책장", 5));
         final Long 이케아_5단_책장_ID = 이케아_5단_책장.getId();
+        final Bookshelf 한샘_4단_책장 = bookshelfRepository.save(new Bookshelf("한샘 4단 책장", 4));
+        final Long 한샘_4단_책장_ID = 한샘_4단_책장.getId();
 
         // when
-        final GetBookshelfResponse 책장_조회_응답 = bookshelfService.getBookshelf(이케아_5단_책장_ID);
+        final GetBookshelfResponse 이케아_책장_조회_응답 = bookshelfService.getBookshelf(이케아_5단_책장_ID);
+        final GetBookshelfResponse 한샘_책장_조회_응답 = bookshelfService.getBookshelf(한샘_4단_책장_ID);
 
         // then
-        assertThat(책장_조회_응답.getName()).isEqualTo(이케아_5단_책장.getName());
-        assertThat(책장_조회_응답.getFloor()).isEqualTo(이케아_5단_책장.getFloor());
+        assertThat(이케아_책장_조회_응답.getName()).isEqualTo(이케아_5단_책장.getName());
+        assertThat(이케아_책장_조회_응답.getFloor()).isEqualTo(이케아_5단_책장.getFloor());
+        assertThat(한샘_책장_조회_응답.getName()).isEqualTo(한샘_4단_책장.getName());
+        assertThat(한샘_책장_조회_응답.getFloor()).isEqualTo(한샘_4단_책장.getFloor());
     }
 
 }
