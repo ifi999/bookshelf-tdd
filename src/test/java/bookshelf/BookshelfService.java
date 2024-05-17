@@ -37,8 +37,9 @@ public class BookshelfService {
         bookshelf.updateBookshelfDetails(request.getName(), request.getFloor());
     }
 
-    public void deleteBookshelf(final Long 이케아_5단_책장_id) {
-
+    public void deleteBookshelf(final Long id) {
+        bookshelfRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Failed to get bookshelf. Invalid bookshelf id: " + id));
+        bookshelfRepository.deleteById(id);
     }
 
 }
