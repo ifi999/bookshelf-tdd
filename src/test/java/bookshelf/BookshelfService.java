@@ -3,6 +3,8 @@ package bookshelf;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+
 @Transactional
 @Service
 public class BookshelfService {
@@ -26,19 +28,19 @@ public class BookshelfService {
     }
 
     public GetBookshelfResponse getBookshelf(final Long id) {
-        final Bookshelf bookshelf = bookshelfRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Failed to get bookshelf. Invalid bookshelf id: " + id));
+        final Bookshelf bookshelf = bookshelfRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Failed to get bookshelf. Invalid bookshelf id: " + id));
 
         return new GetBookshelfResponse(bookshelf);
     }
 
     public void updateBookshelf(final UpdateBookshelfRequest request, final Long id) {
-        final Bookshelf bookshelf = bookshelfRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Failed to update bookshelf. Invalid bookshelf id: " + id));
+        final Bookshelf bookshelf = bookshelfRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Failed to update bookshelf. Invalid bookshelf id: " + id));
 
         bookshelf.updateBookshelfDetails(request.getName(), request.getFloor());
     }
 
     public void deleteBookshelf(final Long id) {
-        bookshelfRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Failed to get bookshelf. Invalid bookshelf id: " + id));
+        bookshelfRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Failed to get bookshelf. Invalid bookshelf id: " + id));
         bookshelfRepository.deleteById(id);
     }
 

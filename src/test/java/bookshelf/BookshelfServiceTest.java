@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -69,7 +71,7 @@ public class BookshelfServiceTest {
 
         // then
         assertThatThrownBy(() -> bookshelfService.getBookshelf(존재하지_않는_책장ID))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(EntityNotFoundException.class)
                 .hasMessage("Failed to get bookshelf. Invalid bookshelf id: " + 존재하지_않는_책장ID);
     }
 
@@ -98,7 +100,7 @@ public class BookshelfServiceTest {
 
         // then
         assertThatThrownBy(() -> bookshelfService.updateBookshelf(이케아_책장_변경_요청, 존재하지_않는_책장ID))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(EntityNotFoundException.class)
                 .hasMessage("Failed to update bookshelf. Invalid bookshelf id: " + 존재하지_않는_책장ID);
     }
 
@@ -113,7 +115,7 @@ public class BookshelfServiceTest {
 
         // then
         assertThatThrownBy(() -> bookshelfService.getBookshelf(이케아_5단_책장_ID))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(EntityNotFoundException.class)
                 .hasMessage("Failed to get bookshelf. Invalid bookshelf id: " + 이케아_5단_책장_ID);
     }
 
@@ -126,7 +128,7 @@ public class BookshelfServiceTest {
 
         // then
         assertThatThrownBy(() -> bookshelfService.deleteBookshelf(존재하지_않는_책장ID))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(EntityNotFoundException.class)
                 .hasMessage("Failed to get bookshelf. Invalid bookshelf id: " + 존재하지_않는_책장ID);
     }
 
