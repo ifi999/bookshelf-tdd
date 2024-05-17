@@ -37,4 +37,8 @@ public class BookshelfService {
         bookshelf.updateBookshelfDetails(request.getName(), request.getFloor());
     }
 
+    public void deleteBookshelf(final Long 이케아_5단_책장_id) {
+
+    }
+
 }
