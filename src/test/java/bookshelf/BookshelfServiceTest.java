@@ -117,4 +117,17 @@ public class BookshelfServiceTest {
                 .hasMessage("Failed to get bookshelf. Invalid bookshelf id: " + 이케아_5단_책장_ID);
     }
 
+    @Test
+    void 존재하지_않는_책장ID로_삭제할_경우_예외가_발생한다() {
+        // given
+        final long 존재하지_않는_책장ID = -1L;
+
+        // when
+
+        // then
+        assertThatThrownBy(() -> bookshelfService.deleteBookshelf(존재하지_않는_책장ID))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Failed to get bookshelf. Invalid bookshelf id: " + 존재하지_않는_책장ID);
+    }
+
 }
