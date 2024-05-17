@@ -102,4 +102,19 @@ public class BookshelfServiceTest {
                 .hasMessage("Failed to update bookshelf. Invalid bookshelf id: " + 존재하지_않는_책장ID);
     }
 
+    @Test
+    void 책장을_삭제한다() {
+        // given
+        final Bookshelf 이케아_5단_책장 = bookshelfRepository.save(new Bookshelf("이케아 5단 책장", 5));
+        final Long 이케아_5단_책장_ID = 이케아_5단_책장.getId();
+
+        // when
+        bookshelfService.deleteBookshelf(이케아_5단_책장_ID);
+
+        // then
+        assertThatThrownBy(() -> bookshelfService.getBookshelf(이케아_5단_책장_ID))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Failed to get bookshelf. Invalid bookshelf id: " + 이케아_5단_책장_ID);
+    }
+
 }
