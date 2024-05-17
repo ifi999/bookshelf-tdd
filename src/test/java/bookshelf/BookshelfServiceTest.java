@@ -78,6 +78,31 @@ public class BookshelfServiceTest {
     }
 
     @Test
+    void 책장_생성할_경우_책장_층수는_0보다_커야한다() {
+        // given
+        final CreateBookshelfRequest 책장_층수_0_생성_요청 = new CreateBookshelfRequest(
+                "이케아 책장",
+                0
+        );
+
+        final CreateBookshelfRequest 책장_층수_음수_생성_요청 = new CreateBookshelfRequest(
+                "이케아 책장",
+                -1
+        );
+
+        // when
+
+        // then
+        assertThatThrownBy(() -> bookshelfService.addBookshelf(책장_층수_0_생성_요청))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("책장 층수는 0보다 커야합니다.");
+
+        assertThatThrownBy(() -> bookshelfService.addBookshelf(책장_층수_음수_생성_요청))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("책장 층수는 0보다 커야합니다.");
+    }
+
+    @Test
     void 책장을_조회한다() {
         // given
         final Bookshelf 이케아_5단_책장 = bookshelfRepository.save(new Bookshelf("이케아 5단 책장", 5));
