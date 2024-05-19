@@ -21,7 +21,7 @@ public class BookshelfService {
         this.bookshelfRepository = bookshelfRepository;
     }
 
-    public CreateBookshelfResponse addBookshelf(final CreateBookshelfRequest request) {
+    public CreateBookshelfResponse createBookshelf(final CreateBookshelfRequest request) {
         final Bookshelf bookshelf = new Bookshelf(request.getName(), request.getFloor());
 
         final Bookshelf savedBookshelf = bookshelfRepository.save(bookshelf);
