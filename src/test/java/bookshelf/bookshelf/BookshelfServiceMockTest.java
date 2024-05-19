@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,6 +39,40 @@ public class BookshelfServiceMockTest {
         assertThat(이케아_책장_생성_응답.getFloor()).isEqualTo(이케아_책장_생성_요청.getFloor());
 
         verify(bookshelfRepository, times(1)).save(any(Bookshelf.class));
+    }
+
+    @Test
+    void 책장_생성할_경우_책장명은_필수값이다() {
+        // given
+        final CreateBookshelfRequest 책장명_null_생성_요청 = new CreateBookshelfRequest(
+                null,
+                1
+        );
+
+        final CreateBookshelfRequest 책장명_공백_생성_요청 = new CreateBookshelfRequest(
+                "",
+                1
+        );
+
+        final CreateBookshelfRequest 책장명_공백_여러_개_생성_요청 = new CreateBookshelfRequest(
+                "   ",
+                1
+        );
+
+        // when
+
+        // then
+        assertThatThrownBy(() -> bookshelfService.addBookshelf(책장명_null_생성_요청))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("책장 이름은 필수값입니다.");
+
+        assertThatThrownBy(() -> bookshelfService.addBookshelf(책장명_공백_생성_요청))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("책장 이름은 필수값입니다.");
+
+        assertThatThrownBy(() -> bookshelfService.addBookshelf(책장명_공백_여러_개_생성_요청))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("책장 이름은 필수값입니다.");
     }
 
 }
