@@ -24,6 +24,12 @@ public class BookshelfServiceMockTest {
     @InjectMocks
     private BookshelfService bookshelfService;
 
+    /**
+     * 궁금한 점
+     * 1. 책장 생성/조회/수정/삭제 테스트도 DB 의존성이 있는데 단위 테스트에 적합할지?
+     * 2. 책장명, 책장 층수 검증은 단위 테스트가 좀 더 적합해보이는데 그럼 지금 통합 테스트에 있는 항목은 불필요한 중복 항목일지?
+     */
+
     @Test
     void 책장을_생성한다() {
         // given
@@ -73,6 +79,30 @@ public class BookshelfServiceMockTest {
         assertThatThrownBy(() -> bookshelfService.addBookshelf(책장명_공백_여러_개_생성_요청))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("책장 이름은 필수값입니다.");
+    }
+
+
+    @Test
+    void 책장_생성할_경우_책장_층수는_0보다_커야한다() {
+        // given
+        final CreateBookshelfRequest 책장_층수_0_생성_요청 = new CreateBookshelfRequest(
+                "이케아 책장",
+                0
+        );
+
+        final CreateBookshelfRequest 책장_층수_음수_생성_요청 = new CreateBookshelfRequest(
+                "이케아 책장",
+                -1
+        );
+
+        // when, then
+        assertThatThrownBy(() -> bookshelfService.addBookshelf(책장_층수_0_생성_요청))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("책장 층수는 0보다 커야합니다.");
+
+        assertThatThrownBy(() -> bookshelfService.addBookshelf(책장_층수_음수_생성_요청))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("책장 층수는 0보다 커야합니다.");
     }
 
 }
