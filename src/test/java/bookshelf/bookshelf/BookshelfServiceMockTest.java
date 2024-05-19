@@ -38,7 +38,7 @@ public class BookshelfServiceMockTest {
         when(bookshelfRepository.save(any(Bookshelf.class))).thenReturn(이케아_책장);
 
         // when
-        final CreateBookshelfResponse 이케아_책장_생성_응답 = bookshelfService.addBookshelf(이케아_책장_생성_요청);
+        final CreateBookshelfResponse 이케아_책장_생성_응답 = bookshelfService.createBookshelf(이케아_책장_생성_요청);
 
         // then
         assertThat(이케아_책장_생성_응답.getName()).isEqualTo(이케아_책장_생성_요청.getName());
@@ -68,15 +68,15 @@ public class BookshelfServiceMockTest {
         // when
 
         // then
-        assertThatThrownBy(() -> bookshelfService.addBookshelf(책장명_null_생성_요청))
+        assertThatThrownBy(() -> bookshelfService.createBookshelf(책장명_null_생성_요청))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("책장 이름은 필수값입니다.");
 
-        assertThatThrownBy(() -> bookshelfService.addBookshelf(책장명_공백_생성_요청))
+        assertThatThrownBy(() -> bookshelfService.createBookshelf(책장명_공백_생성_요청))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("책장 이름은 필수값입니다.");
 
-        assertThatThrownBy(() -> bookshelfService.addBookshelf(책장명_공백_여러_개_생성_요청))
+        assertThatThrownBy(() -> bookshelfService.createBookshelf(책장명_공백_여러_개_생성_요청))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("책장 이름은 필수값입니다.");
     }
@@ -96,11 +96,11 @@ public class BookshelfServiceMockTest {
         );
 
         // when, then
-        assertThatThrownBy(() -> bookshelfService.addBookshelf(책장_층수_0_생성_요청))
+        assertThatThrownBy(() -> bookshelfService.createBookshelf(책장_층수_0_생성_요청))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("책장 층수는 0보다 커야합니다.");
 
-        assertThatThrownBy(() -> bookshelfService.addBookshelf(책장_층수_음수_생성_요청))
+        assertThatThrownBy(() -> bookshelfService.createBookshelf(책장_층수_음수_생성_요청))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("책장 층수는 0보다 커야합니다.");
     }
