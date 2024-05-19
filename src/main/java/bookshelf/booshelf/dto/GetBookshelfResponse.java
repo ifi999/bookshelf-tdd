@@ -1,12 +1,14 @@
-package bookshelf;
+package bookshelf.booshelf.dto;
 
-public class CreateBookshelfResponse {
+import bookshelf.booshelf.entity.Bookshelf;
+
+public class GetBookshelfResponse {
 
     private Long id;
     private String name;
     private int floor;
 
-    public CreateBookshelfResponse(Bookshelf bookshelf) {
+    public GetBookshelfResponse(Bookshelf bookshelf) {
         this.id = bookshelf.getId();
         this.name = bookshelf.getName();
         this.floor = bookshelf.getFloor();

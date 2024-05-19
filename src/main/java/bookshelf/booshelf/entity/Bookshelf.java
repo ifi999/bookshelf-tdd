@@ -1,4 +1,4 @@
-package bookshelf;
+package bookshelf.booshelf.entity;
 
 import org.springframework.util.Assert;
 

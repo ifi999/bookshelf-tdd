@@ -1,11 +1,11 @@
-package bookshelf;
+package bookshelf.booshelf.dto;
 
-public class CreateBookshelfRequest {
+public class UpdateBookshelfRequest {
 
     private String name;
     private int floor;
 
-    public CreateBookshelfRequest(final String name, final int floor) {
+    public UpdateBookshelfRequest(String name, int floor) {
         this.name = name;
         this.floor = floor;
     }

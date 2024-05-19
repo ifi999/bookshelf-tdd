@@ -1,5 +1,11 @@
-package bookshelf;
+package bookshelf.booshelf.service;
 
+import bookshelf.booshelf.dto.CreateBookshelfRequest;
+import bookshelf.booshelf.dto.CreateBookshelfResponse;
+import bookshelf.booshelf.dto.GetBookshelfResponse;
+import bookshelf.booshelf.dto.UpdateBookshelfRequest;
+import bookshelf.booshelf.entity.Bookshelf;
+import bookshelf.booshelf.repository.BookshelfRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

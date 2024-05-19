@@ -1,5 +1,12 @@
 package bookshelf;
 
+import bookshelf.booshelf.dto.CreateBookshelfRequest;
+import bookshelf.booshelf.dto.CreateBookshelfResponse;
+import bookshelf.booshelf.dto.GetBookshelfResponse;
+import bookshelf.booshelf.dto.UpdateBookshelfRequest;
+import bookshelf.booshelf.entity.Bookshelf;
+import bookshelf.booshelf.repository.BookshelfRepository;
+import bookshelf.booshelf.service.BookshelfService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
