@@ -3,12 +3,14 @@ package bookshelf.bookshelf;
 import bookshelf.booshelf.dto.CreateBookshelfRequest;
 import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class BookshelfAcceptanceTest {
 
     @Test
