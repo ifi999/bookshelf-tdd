@@ -2,6 +2,8 @@ package bookshelf.bookshelf;
 
 import bookshelf.booshelf.dto.CreateBookshelfRequest;
 import io.restassured.path.json.JsonPath;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class BookshelfAcceptanceTest {
 
+    private static final String BOOKSHELF_API_PATH = "/bookshelf";
+
     @Test
     void 책장을_생성한다() {
         // given
@@ -22,18 +26,7 @@ public class BookshelfAcceptanceTest {
         );
 
         // when
-        final JsonPath 이케아_책장_생성_응답 =
-                given()
-                    .log().all()
-                    .body(이케아_책장_생성_요청)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .when()
-                    .post("/bookshelf")
-                .then()
-                    .statusCode(HttpStatus.CREATED.value())
-                    .log().all()
-                .extract()
-                    .jsonPath();
+        final JsonPath 이케아_책장_생성_응답 = callPostApi(이케아_책장_생성_요청, BOOKSHELF_API_PATH).jsonPath();
 
         // then
         final String 책장명 = 이케아_책장_생성_응답.getString("name");
@@ -49,19 +42,7 @@ public class BookshelfAcceptanceTest {
                 "이케아 5단 책장",
                 5
         );
-        final JsonPath 이케아_책장_생성_응답 =
-                given()
-                    .log().all()
-                    .body(이케아_책장_생성_요청)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .when()
-                    .post("/bookshelf")
-                .then()
-                    .statusCode(HttpStatus.CREATED.value())
-                    .log().all()
-                .extract()
-                    .jsonPath();
-
+        final JsonPath 이케아_책장_생성_응답 = callPostApi(이케아_책장_생성_요청, BOOKSHELF_API_PATH).jsonPath();
         final Long 이케아_책장_ID = 이케아_책장_생성_응답.getLong("id");
 
         // when
@@ -83,6 +64,19 @@ public class BookshelfAcceptanceTest {
         assertThat(조회_책장_ID).isEqualTo(이케아_책장_ID);
         assertThat(조회_책장명).isEqualTo("이케아 5단 책장");
         assertThat(조회_책장_층수).isEqualTo(5);
+    }
+
+    private ExtractableResponse<Response> callPostApi(final Object requestBody, final String path) {
+        return given()
+                    .log().all()
+                    .body(requestBody)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when()
+                    .post(path)
+                .then()
+                    .statusCode(HttpStatus.CREATED.value())
+                    .log().all()
+                .extract();
     }
 
 }
