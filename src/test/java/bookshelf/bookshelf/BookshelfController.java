@@ -29,7 +29,9 @@ public class BookshelfController {
     public ResponseEntity<GetBookshelfResponse> getBookshelf(
             final @PathVariable Long id
     ) {
-        return ResponseEntity.ok(null);
+        final GetBookshelfResponse bookshelf = bookshelfService.getBookshelf(id);
+
+        return ResponseEntity.ok(bookshelf);
     }
 
 }
