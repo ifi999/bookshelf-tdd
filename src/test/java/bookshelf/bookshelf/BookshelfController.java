@@ -2,11 +2,10 @@ package bookshelf.bookshelf;
 
 import bookshelf.booshelf.dto.CreateBookshelfRequest;
 import bookshelf.booshelf.dto.CreateBookshelfResponse;
+import bookshelf.booshelf.dto.GetBookshelfResponse;
 import bookshelf.booshelf.service.BookshelfService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -24,6 +23,13 @@ public class BookshelfController {
         final CreateBookshelfResponse bookshelf = bookshelfService.createBookshelf(request);
 
         return ResponseEntity.created(URI.create("/bookshelf/" + bookshelf.getId())).body(bookshelf);
+    }
+
+    @GetMapping("/bookshelf/{id}")
+    public ResponseEntity<GetBookshelfResponse> getBookshelf(
+            final @PathVariable Long id
+    ) {
+        return ResponseEntity.ok(null);
     }
 
 }
