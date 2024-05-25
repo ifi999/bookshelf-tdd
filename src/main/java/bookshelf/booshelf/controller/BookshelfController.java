@@ -1,4 +1,4 @@
-package bookshelf.bookshelf;
+package bookshelf.booshelf.controller;
 
 import bookshelf.booshelf.dto.CreateBookshelfRequest;
 import bookshelf.booshelf.dto.CreateBookshelfResponse;
