@@ -88,15 +88,7 @@ public class BookshelfAcceptanceTest {
         final UpdateBookshelfRequest 한샘_책장_수정_요청 = new UpdateBookshelfRequest("한샘 5단 책장", 5);
 
         // when
-        given()
-            .body(한샘_책장_수정_요청)
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .log().all()
-        .when()
-            .put("/bookshelf/{id}", 한샘_책장_ID)
-        .then()
-            .statusCode(HttpStatus.OK.value())
-            .log().all();
+        callPutApi(한샘_책장_수정_요청, 한샘_책장_ID);
 
         // then
         final JsonPath 한샘_책장_조회_응답 = callGetApi(한샘_책장_ID).jsonPath();
@@ -142,6 +134,18 @@ public class BookshelfAcceptanceTest {
                     .statusCode(HttpStatus.OK.value())
                     .log().all()
                 .extract();
+    }
+
+    private void callPutApi(final Object request, final Long id) {
+        given()
+                    .body(request)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .log().all()
+                .when()
+                    .put(BOOKSHELF_API_PATH + "/{id}", id)
+                .then()
+                    .statusCode(HttpStatus.OK.value())
+                    .log().all();
     }
 
 }
