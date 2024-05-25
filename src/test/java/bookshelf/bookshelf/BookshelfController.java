@@ -3,6 +3,7 @@ package bookshelf.bookshelf;
 import bookshelf.booshelf.dto.CreateBookshelfRequest;
 import bookshelf.booshelf.dto.CreateBookshelfResponse;
 import bookshelf.booshelf.dto.GetBookshelfResponse;
+import bookshelf.booshelf.dto.UpdateBookshelfRequest;
 import bookshelf.booshelf.service.BookshelfService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class BookshelfController {
     @PutMapping("/bookshelf/{id}")
     public ResponseEntity<Void> updateBookshelf(
             final @PathVariable Long id,
-            final @RequestBody CreateBookshelfRequest request
+            final @RequestBody UpdateBookshelfRequest request
     ) {
         return ResponseEntity.ok().build();
     }
