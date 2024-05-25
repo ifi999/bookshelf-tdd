@@ -38,7 +38,7 @@ public class BookshelfAcceptanceTest {
         );
 
         // when
-        final JsonPath 이케아_책장_생성_응답 = callPostApi(이케아_책장_생성_요청, BOOKSHELF_API_PATH).jsonPath();
+        final JsonPath 이케아_책장_생성_응답 = callPostApi(이케아_책장_생성_요청).jsonPath();
 
         // then
         final String 책장명 = 이케아_책장_생성_응답.getString("name");
@@ -54,7 +54,7 @@ public class BookshelfAcceptanceTest {
                 "이케아 5단 책장",
                 5
         );
-        final JsonPath 이케아_책장_생성_응답 = callPostApi(이케아_책장_생성_요청, BOOKSHELF_API_PATH).jsonPath();
+        final JsonPath 이케아_책장_생성_응답 = callPostApi(이케아_책장_생성_요청).jsonPath();
         final Long 이케아_책장_ID = 이케아_책장_생성_응답.getLong("id");
 
         // when
@@ -73,7 +73,7 @@ public class BookshelfAcceptanceTest {
     void 책장을_수정한다() {
         // given
         final CreateBookshelfRequest 한샘_책장_생성_요청 = new CreateBookshelfRequest("한샘 4단 책장", 4);
-        final JsonPath 한샘_책장_생성_응답 = callPostApi(한샘_책장_생성_요청, BOOKSHELF_API_PATH).jsonPath();
+        final JsonPath 한샘_책장_생성_응답 = callPostApi(한샘_책장_생성_요청).jsonPath();
         final long 한샘_책장_ID = 한샘_책장_생성_응답.getLong("id");
 
         final UpdateBookshelfRequest 한샘_책장_수정_요청 = new UpdateBookshelfRequest("한샘 5단 책장", 5);
@@ -98,13 +98,13 @@ public class BookshelfAcceptanceTest {
         assertThat(수정_책장_층수).isEqualTo(5);
     }
 
-    private ExtractableResponse<Response> callPostApi(final Object requestBody, final String path) {
+    private ExtractableResponse<Response> callPostApi(final Object requestBody) {
         return given()
                     .log().all()
                     .body(requestBody)
                     .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
-                    .post(path)
+                    .post(BOOKSHELF_API_PATH)
                 .then()
                     .statusCode(HttpStatus.CREATED.value())
                     .log().all()
