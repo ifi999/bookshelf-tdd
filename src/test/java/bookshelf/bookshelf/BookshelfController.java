@@ -40,6 +40,8 @@ public class BookshelfController {
             final @PathVariable Long id,
             final @RequestBody UpdateBookshelfRequest request
     ) {
+        bookshelfService.updateBookshelf(request, id);
+        
         return ResponseEntity.ok().build();
     }
 
