@@ -47,6 +47,8 @@ public class BookshelfController {
 
     @DeleteMapping("/bookshelf/{id}")
     public ResponseEntity<Void> deleteBookshelf(final @PathVariable Long id) {
+        bookshelfService.deleteBookshelf(id);
+
         return ResponseEntity.ok().build();
     }
 
