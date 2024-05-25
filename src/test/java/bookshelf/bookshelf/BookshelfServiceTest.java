@@ -190,6 +190,24 @@ public class BookshelfServiceTest {
     }
 
     @Test
+    void 이미_등록되어있는_책장명으로_수정할_경우_예외가_발생한다() {
+        // given
+        final CreateBookshelfRequest 한샘_책장_생성_요청 = new CreateBookshelfRequest("한샘 4단 책장", 4);
+        final CreateBookshelfResponse 한샘_책장 = bookshelfService.createBookshelf(한샘_책장_생성_요청);
+        final Long 한샘_책장_ID = 한샘_책장.getId();
+
+        final CreateBookshelfRequest 이케아_책장_생성_요청 = new CreateBookshelfRequest("이케아 5단 책장", 5);
+        bookshelfService.createBookshelf(이케아_책장_생성_요청);
+
+        final UpdateBookshelfRequest 한샘_책장_변경_요청 = new UpdateBookshelfRequest("이케아 5단 책장", 5);
+
+        // when
+
+        // then
+        bookshelfService.updateBookshelf(한샘_책장_변경_요청, 한샘_책장_ID);
+    }
+
+    @Test
     void 책장을_삭제한다() {
         // given
         final Bookshelf 이케아_5단_책장 = bookshelfRepository.save(new Bookshelf("이케아 5단 책장", 5));
