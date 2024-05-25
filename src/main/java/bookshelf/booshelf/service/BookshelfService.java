@@ -27,7 +27,7 @@ public class BookshelfService {
         final String bookshelfName = request.getName();
         final Bookshelf bookshelf = new Bookshelf(bookshelfName, request.getFloor());
 
-        checkIfBookshelfExists(bookshelfName);
+        checkIfBookshelfExistsByName(bookshelfName);
 
         final Bookshelf savedBookshelf = bookshelfRepository.save(bookshelf);
 
@@ -43,7 +43,7 @@ public class BookshelfService {
     public void updateBookshelf(final UpdateBookshelfRequest request, final Long id) {
         final Bookshelf bookshelf = bookshelfRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Failed to update bookshelf. Invalid bookshelf id: " + id));
 
-        checkIfBookshelfExists(request.getName());
+        checkIfBookshelfExistsByName(request.getName());
 
         bookshelf.updateBookshelfDetails(request.getName(), request.getFloor());
     }
@@ -53,7 +53,7 @@ public class BookshelfService {
         bookshelfRepository.deleteById(id);
     }
 
-    private void checkIfBookshelfExists(final String bookshelfName) {
+    private void checkIfBookshelfExistsByName(final String bookshelfName) {
         final Optional<Bookshelf> existingBookshelf = bookshelfRepository.findBookshelfByName(bookshelfName);
         if (existingBookshelf.isPresent()) {
             throw new EntityExistsException("A bookshelf with the name '" + bookshelfName + "' already exists.");
