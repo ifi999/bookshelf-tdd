@@ -132,11 +132,9 @@ public class BookshelfAcceptanceTest {
             .log().all();
 
         // then
-        final JsonPath 한샘_책장_조회_응답 = callGetApi(한샘_책장_ID).jsonPath();
+        final ExtractableResponse<Response> 한샘_책장_조회_응답 = failGetApi(한샘_책장_ID);
 
-        final String 수정_책장명 = 한샘_책장_조회_응답.getString("name");
-        final int 수정_책장_층수 = 한샘_책장_조회_응답.getInt("floor");
-        assertThat(수정_책장_층수).isNull();
+        assertThat(한샘_책장_조회_응답.statusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
     private ExtractableResponse<Response> callPostApi(final Object requestBody) {
@@ -172,6 +170,17 @@ public class BookshelfAcceptanceTest {
                     .get(BOOKSHELF_API_PATH + "/{id}", id)
                 .then()
                     .statusCode(HttpStatus.OK.value())
+                    .log().all()
+                .extract();
+    }
+
+    private ExtractableResponse<Response> failGetApi(final Long id) {
+        return given()
+                    .log().all()
+                .when()
+                    .get(BOOKSHELF_API_PATH + "/{id}", id)
+                .then()
+                    .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
                     .log().all()
                 .extract();
     }
