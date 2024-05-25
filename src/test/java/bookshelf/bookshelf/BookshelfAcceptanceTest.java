@@ -123,13 +123,7 @@ public class BookshelfAcceptanceTest {
         final long 한샘_책장_ID = 한샘_책장_생성_응답.getLong("id");
 
         // when
-        given()
-            .log().all()
-        .when()
-            .delete(BOOKSHELF_API_PATH + "/{id}", 한샘_책장_ID)
-        .then()
-            .statusCode(HttpStatus.OK.value())
-            .log().all();
+        callDeleteApi(한샘_책장_ID);
 
         // then
         final ExtractableResponse<Response> 한샘_책장_조회_응답 = failGetApi(한샘_책장_ID);
@@ -208,6 +202,16 @@ public class BookshelfAcceptanceTest {
                     .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
                     .log().all()
                 .extract();
+    }
+
+    private void callDeleteApi(final Long id) {
+        given()
+            .log().all()
+        .when()
+            .delete(BOOKSHELF_API_PATH + "/{id}", id)
+        .then()
+            .statusCode(HttpStatus.OK.value())
+            .log().all();
     }
 
 }
