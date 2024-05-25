@@ -9,7 +9,9 @@ import bookshelf.booshelf.repository.BookshelfRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 @Transactional
 @Service
@@ -22,7 +24,10 @@ public class BookshelfService {
     }
 
     public CreateBookshelfResponse createBookshelf(final CreateBookshelfRequest request) {
-        final Bookshelf bookshelf = new Bookshelf(request.getName(), request.getFloor());
+        final String bookshelfName = request.getName();
+        final Bookshelf bookshelf = new Bookshelf(bookshelfName, request.getFloor());
+
+        checkIfBookshelfExists(bookshelfName);
 
         final Bookshelf savedBookshelf = bookshelfRepository.save(bookshelf);
 
@@ -44,6 +49,13 @@ public class BookshelfService {
     public void deleteBookshelf(final Long id) {
         bookshelfRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Failed to get bookshelf. Invalid bookshelf id: " + id));
         bookshelfRepository.deleteById(id);
+    }
+
+    private void checkIfBookshelfExists(final String bookshelfName) {
+        final Optional<Bookshelf> existingBookshelf = bookshelfRepository.findBookshelfByName(bookshelfName);
+        if (existingBookshelf.isPresent()) {
+            throw new EntityExistsException("A bookshelf with the name '" + bookshelfName + "' already exists.");
+        }
     }
 
 }
