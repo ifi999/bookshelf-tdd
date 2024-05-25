@@ -2,12 +2,10 @@ package bookshelf.booshelf.entity;
 
 import org.springframework.util.Assert;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "name" }) })
 public class Bookshelf {
 
     @Id
