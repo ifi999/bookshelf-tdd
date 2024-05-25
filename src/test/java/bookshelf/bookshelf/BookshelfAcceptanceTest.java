@@ -1,10 +1,13 @@
 package bookshelf.bookshelf;
 
 import bookshelf.booshelf.dto.CreateBookshelfRequest;
+import bookshelf.util.DatabaseCleaner;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +19,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BookshelfAcceptanceTest {
 
     private static final String BOOKSHELF_API_PATH = "/bookshelf";
+
+    @Autowired
+    private DatabaseCleaner databaseCleaner;
+
+    @BeforeEach
+    void setUp() {
+        databaseCleaner.execute();
+    }
 
     @Test
     void 책장을_생성한다() {
