@@ -10,9 +10,9 @@ import bookshelf.booshelf.service.BookshelfService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -123,7 +123,9 @@ public class BookshelfServiceTest {
         // when
 
         // then
-        bookshelfService.createBookshelf(이케아_책장_생성_요청);
+        assertThatThrownBy(() -> bookshelfService.createBookshelf(이케아_책장_생성_요청))
+                .isInstanceOf(EntityExistsException.class)
+                .hasMessage("A bookshelf with the name '이케아 5단 책장' already exists.");
     }
 
     @Test
