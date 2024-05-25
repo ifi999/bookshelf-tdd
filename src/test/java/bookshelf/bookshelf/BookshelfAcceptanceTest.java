@@ -58,16 +58,7 @@ public class BookshelfAcceptanceTest {
         final Long 이케아_책장_ID = 이케아_책장_생성_응답.getLong("id");
 
         // when
-        final JsonPath 이케아_책장_조회_응답 =
-                given()
-                    .log().all()
-                .when()
-                    .get("/bookshelf/{id}", 이케아_책장_ID)
-                .then()
-                    .statusCode(HttpStatus.OK.value())
-                    .log().all()
-                .extract()
-                    .jsonPath();
+        final JsonPath 이케아_책장_조회_응답 = callGetApi(이케아_책장_ID).jsonPath();
 
         // then
         final Long 조회_책장_ID = 이케아_책장_조회_응답.getLong("id");
@@ -99,16 +90,7 @@ public class BookshelfAcceptanceTest {
             .log().all();
 
         // then
-        final JsonPath 한샘_책장_조회_응답 =
-                given()
-                    .log().all()
-                .when()
-                    .get("/bookshelf/{id}", 한샘_책장_ID)
-                .then()
-                    .statusCode(HttpStatus.OK.value())
-                    .log().all()
-                .extract()
-                    .jsonPath();
+        final JsonPath 한샘_책장_조회_응답 = callGetApi(한샘_책장_ID).jsonPath();
 
         final String 수정_책장명 = 한샘_책장_조회_응답.getString("name");
         final int 수정_책장_층수 = 한샘_책장_조회_응답.getInt("floor");
@@ -125,6 +107,17 @@ public class BookshelfAcceptanceTest {
                     .post(path)
                 .then()
                     .statusCode(HttpStatus.CREATED.value())
+                    .log().all()
+                .extract();
+    }
+
+    private ExtractableResponse<Response> callGetApi(final Long id) {
+        return given()
+                    .log().all()
+                .when()
+                    .get(BOOKSHELF_API_PATH + "/{id}", id)
+                .then()
+                    .statusCode(HttpStatus.OK.value())
                     .log().all()
                 .extract();
     }
