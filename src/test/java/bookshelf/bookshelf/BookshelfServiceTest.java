@@ -10,6 +10,7 @@ import bookshelf.booshelf.service.BookshelfService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
@@ -107,6 +108,22 @@ public class BookshelfServiceTest {
         assertThatThrownBy(() -> bookshelfService.createBookshelf(책장_층수_음수_생성_요청))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("책장 층수는 0보다 커야합니다.");
+    }
+
+    @Test
+    void 이미_등록된_책장명은_등록할_수_없다() {
+        // given
+        bookshelfRepository.save(new Bookshelf("이케아 5단 책장", 5));
+
+        final CreateBookshelfRequest 이케아_책장_생성_요청 = new CreateBookshelfRequest(
+                "이케아 5단 책장",
+                5
+        );
+
+        // when
+
+        // then
+        bookshelfService.createBookshelf(이케아_책장_생성_요청);
     }
 
     @Test
