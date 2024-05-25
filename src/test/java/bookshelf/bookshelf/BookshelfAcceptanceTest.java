@@ -32,10 +32,7 @@ public class BookshelfAcceptanceTest {
     @Test
     void 책장을_생성한다() {
         // given
-        final CreateBookshelfRequest 이케아_책장_생성_요청 = new CreateBookshelfRequest(
-                "이케아 5단 책장",
-                5
-        );
+        final CreateBookshelfRequest 이케아_책장_생성_요청 = new CreateBookshelfRequest("이케아 5단 책장", 5);
 
         // when
         final JsonPath 이케아_책장_생성_응답 = callPostApi(이케아_책장_생성_요청).jsonPath();
@@ -48,12 +45,24 @@ public class BookshelfAcceptanceTest {
     }
 
     @Test
+    void 중복된_책장명으로_생성하면_요청에_실패한다() {
+        // given
+        final CreateBookshelfRequest 이케아_책장_생성_요청 = new CreateBookshelfRequest("이케아 5단 책장", 5);
+        callPostApi(이케아_책장_생성_요청);
+
+        final CreateBookshelfRequest 중복_책장명_생성_요청 = new CreateBookshelfRequest("이케아 5단 책장", 5);
+
+        // when
+        final ExtractableResponse<Response> 중복_책장명_생성_응답 = failPostApi(중복_책장명_생성_요청);
+
+        // then
+        assertThat(중복_책장명_생성_응답.statusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
+
+    @Test
     void 책장을_조회한다() {
         // given
-        final CreateBookshelfRequest 이케아_책장_생성_요청 = new CreateBookshelfRequest(
-                "이케아 5단 책장",
-                5
-        );
+        final CreateBookshelfRequest 이케아_책장_생성_요청 = new CreateBookshelfRequest("이케아 5단 책장", 5);
         final JsonPath 이케아_책장_생성_응답 = callPostApi(이케아_책장_생성_요청).jsonPath();
         final Long 이케아_책장_ID = 이케아_책장_생성_응답.getLong("id");
 
@@ -107,6 +116,19 @@ public class BookshelfAcceptanceTest {
                     .post(BOOKSHELF_API_PATH)
                 .then()
                     .statusCode(HttpStatus.CREATED.value())
+                    .log().all()
+                .extract();
+    }
+
+    private ExtractableResponse<Response> failPostApi(final Object requestBody) {
+        return given()
+                    .log().all()
+                    .body(requestBody)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when()
+                    .post(BOOKSHELF_API_PATH)
+                .then()
+                    .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
                     .log().all()
                 .extract();
     }
