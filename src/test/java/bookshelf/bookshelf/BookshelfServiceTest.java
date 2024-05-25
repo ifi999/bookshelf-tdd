@@ -204,7 +204,9 @@ public class BookshelfServiceTest {
         // when
 
         // then
-        bookshelfService.updateBookshelf(한샘_책장_변경_요청, 한샘_책장_ID);
+        assertThatThrownBy(() -> bookshelfService.updateBookshelf(한샘_책장_변경_요청, 한샘_책장_ID))
+                .isInstanceOf(EntityExistsException.class)
+                .hasMessage("A bookshelf with the name '한샘 4단 책장' already exists.");
     }
 
     @Test
