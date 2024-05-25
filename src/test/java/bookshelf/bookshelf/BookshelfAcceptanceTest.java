@@ -81,29 +81,37 @@ public class BookshelfAcceptanceTest {
     @Test
     void 책장을_수정한다() {
         // given
-        final CreateBookshelfRequest 한샘_책장_생성_요청 = new CreateBookshelfRequest("한샘 4단 책장", 5);
+        final CreateBookshelfRequest 한샘_책장_생성_요청 = new CreateBookshelfRequest("한샘 4단 책장", 4);
         final JsonPath 한샘_책장_생성_응답 = callPostApi(한샘_책장_생성_요청, BOOKSHELF_API_PATH).jsonPath();
         final long 한샘_책장_ID = 한샘_책장_생성_응답.getLong("id");
 
         final UpdateBookshelfRequest 한샘_책장_수정_요청 = new UpdateBookshelfRequest("한샘 5단 책장", 5);
 
         // when
-        final JsonPath 한샘_책장_수정_응답 =
+        given()
+            .body(한샘_책장_수정_요청)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .log().all()
+        .when()
+            .put("/bookshelf/{id}", 한샘_책장_ID)
+        .then()
+            .statusCode(HttpStatus.OK.value())
+            .log().all();
+
+        // then
+        final JsonPath 한샘_책장_조회_응답 =
                 given()
-                    .body(한샘_책장_수정_요청)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                     .log().all()
                 .when()
-                    .put("/bookshelf/{id}", 한샘_책장_ID)
+                    .get("/bookshelf/{id}", 한샘_책장_ID)
                 .then()
                     .statusCode(HttpStatus.OK.value())
                     .log().all()
                 .extract()
                     .jsonPath();
 
-        // then
-        final String 수정_책장명 = 한샘_책장_수정_응답.getString("name");
-        final int 수정_책장_층수 = 한샘_책장_수정_응답.getInt("floor");
+        final String 수정_책장명 = 한샘_책장_조회_응답.getString("name");
+        final int 수정_책장_층수 = 한샘_책장_조회_응답.getInt("floor");
         assertThat(수정_책장명).isEqualTo("한샘 5단 책장");
         assertThat(수정_책장_층수).isEqualTo(5);
     }
