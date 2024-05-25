@@ -111,7 +111,7 @@ public class BookshelfServiceTest {
     }
 
     @Test
-    void 이미_등록된_책장명은_등록할_수_없다() {
+    void 이미_등록된_책장명은_등록할_경우_예외가_발생한다() {
         // given
         bookshelfRepository.save(new Bookshelf("이케아 5단 책장", 5));
 
