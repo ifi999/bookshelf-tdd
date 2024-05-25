@@ -45,4 +45,9 @@ public class BookshelfController {
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping("/bookshelf/{id}")
+    public ResponseEntity<Void> deleteBookshelf(final @PathVariable Long id) {
+        return ResponseEntity.ok().build();
+    }
+
 }
