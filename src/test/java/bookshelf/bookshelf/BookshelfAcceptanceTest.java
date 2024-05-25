@@ -99,6 +99,22 @@ public class BookshelfAcceptanceTest {
         assertThat(수정_책장_층수).isEqualTo(5);
     }
 
+    @Test
+    void 중복된_책장명으로_수정하면_요청에_실패한다() {
+        // given
+        final CreateBookshelfRequest 한샘_책장_생성_요청 = new CreateBookshelfRequest("한샘 4단 책장", 4);
+        final JsonPath 한샘_책장_생성_응답 = callPostApi(한샘_책장_생성_요청).jsonPath();
+        final long 한샘_책장_ID = 한샘_책장_생성_응답.getLong("id");
+
+        final UpdateBookshelfRequest 중복_책장명_수정_요청 = new UpdateBookshelfRequest("한샘 4단 책장", 4);
+
+        // when
+        final ExtractableResponse<Response> 중복_책장명_수정_응답 = failPutApi(중복_책장명_수정_요청, 한샘_책장_ID);
+
+        // then
+        assertThat(중복_책장명_수정_응답.statusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
+
     private ExtractableResponse<Response> callPostApi(final Object requestBody) {
         return given()
                     .log().all()
@@ -138,14 +154,27 @@ public class BookshelfAcceptanceTest {
 
     private void callPutApi(final Object request, final Long id) {
         given()
+            .body(request)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .log().all()
+        .when()
+            .put(BOOKSHELF_API_PATH + "/{id}", id)
+        .then()
+            .statusCode(HttpStatus.OK.value())
+            .log().all();
+    }
+
+    private ExtractableResponse<Response> failPutApi(final Object request, final Long id) {
+        return given()
                     .body(request)
                     .contentType(MediaType.APPLICATION_JSON_VALUE)
                     .log().all()
                 .when()
                     .put(BOOKSHELF_API_PATH + "/{id}", id)
                 .then()
-                    .statusCode(HttpStatus.OK.value())
-                    .log().all();
+                    .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .log().all()
+                .extract();
     }
 
 }
