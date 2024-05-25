@@ -115,6 +115,30 @@ public class BookshelfAcceptanceTest {
         assertThat(중복_책장명_수정_응답.statusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
+    @Test
+    void 책장을_삭제한다() {
+        // given
+        final CreateBookshelfRequest 한샘_책장_생성_요청 = new CreateBookshelfRequest("한샘 4단 책장", 4);
+        final JsonPath 한샘_책장_생성_응답 = callPostApi(한샘_책장_생성_요청).jsonPath();
+        final long 한샘_책장_ID = 한샘_책장_생성_응답.getLong("id");
+
+        // when
+        given()
+            .log().all()
+        .when()
+            .delete(BOOKSHELF_API_PATH + "/{id}", 한샘_책장_ID)
+        .then()
+            .statusCode(HttpStatus.OK.value())
+            .log().all();
+
+        // then
+        final JsonPath 한샘_책장_조회_응답 = callGetApi(한샘_책장_ID).jsonPath();
+
+        final String 수정_책장명 = 한샘_책장_조회_응답.getString("name");
+        final int 수정_책장_층수 = 한샘_책장_조회_응답.getInt("floor");
+        assertThat(수정_책장_층수).isNull();
+    }
+
     private ExtractableResponse<Response> callPostApi(final Object requestBody) {
         return given()
                     .log().all()
