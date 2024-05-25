@@ -43,7 +43,7 @@ public class BookshelfService {
     public void updateBookshelf(final UpdateBookshelfRequest request, final Long id) {
         final Bookshelf bookshelf = bookshelfRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Failed to update bookshelf. Invalid bookshelf id: " + id));
 
-        checkIfBookshelfExists(bookshelf.getName());
+        checkIfBookshelfExists(request.getName());
 
         bookshelf.updateBookshelfDetails(request.getName(), request.getFloor());
     }
