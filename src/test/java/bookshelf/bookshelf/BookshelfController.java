@@ -34,4 +34,12 @@ public class BookshelfController {
         return ResponseEntity.ok(bookshelf);
     }
 
+    @PutMapping("/bookshelf/{id}")
+    public ResponseEntity<Void> updateBookshelf(
+            final @PathVariable Long id,
+            final @RequestBody CreateBookshelfRequest request
+    ) {
+        return ResponseEntity.ok().build();
+    }
+
 }
