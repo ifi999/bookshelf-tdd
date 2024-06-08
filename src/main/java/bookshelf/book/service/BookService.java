@@ -1,6 +1,9 @@
-package bookshelf.book;
+package bookshelf.book.service;
 
+import bookshelf.book.dto.CreateBookRequest;
+import bookshelf.book.dto.CreateBookResponse;
 import bookshelf.book.entity.Book;
+import bookshelf.book.repository.BookRepository;
 import bookshelf.booshelf.entity.Bookshelf;
 import bookshelf.booshelf.repository.BookshelfRepository;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package bookshelf.book;
+package bookshelf.book.repository;
 
 import bookshelf.book.entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;

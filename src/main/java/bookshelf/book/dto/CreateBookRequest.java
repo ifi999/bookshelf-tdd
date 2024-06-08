@@ -1,4 +1,4 @@
-package bookshelf.book;
+package bookshelf.book.dto;
 
 import bookshelf.book.entity.Book;
 import bookshelf.book.entity.BookCategory;
