@@ -1,4 +1,4 @@
-package bookshelf.book;
+package bookshelf.book.entity;
 
 public enum BookCategory {
 

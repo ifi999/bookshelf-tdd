@@ -1,8 +1,11 @@
 package bookshelf.booshelf.entity;
 
+import bookshelf.book.entity.Book;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "name" }) })
@@ -13,6 +16,8 @@ public class Bookshelf {
     private Long id;
     private String name;
     private int floor;
+    @OneToMany(mappedBy = "bookshelf")
+    private List<Book> bookList = new ArrayList<>();
 
     protected Bookshelf() {
     }
@@ -33,6 +38,10 @@ public class Bookshelf {
         this.floor = floor;
     }
 
+    public void addBook(final Book book) {
+        this.bookList.add(book);
+    }
+
     public Long getId() {
         return id;
     }
@@ -43,6 +52,10 @@ public class Bookshelf {
 
     public int getFloor() {
         return floor;
+    }
+
+    public List<Book> getBookList() {
+        return bookList;
     }
 
 }
