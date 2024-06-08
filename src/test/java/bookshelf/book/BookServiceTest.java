@@ -44,6 +44,10 @@ public class BookServiceTest {
         // then
         assertThat(객사오_생성_응답.getId()).isNotNull();
         assertThat("객체지향의 사실과 오해").isEqualTo(객사오_생성_응답.getTitle());
+        assertThat("조영호").isEqualTo(객사오_생성_응답.getAuthor());
+        assertThat("9788998139766").isEqualTo(객사오_생성_응답.getIsbn());
+        assertThat(LocalDate.of(2023, 6, 1)).isEqualTo(객사오_생성_응답.getPurchaseDate());
+        assertThat(BookCategory.IT).isEqualTo(객사오_생성_응답.getBookCategory());
     }
 
 }
