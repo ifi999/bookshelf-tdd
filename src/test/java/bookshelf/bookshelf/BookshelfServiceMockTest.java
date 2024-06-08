@@ -41,8 +41,8 @@ public class BookshelfServiceMockTest {
         final CreateBookshelfResponse 이케아_책장_생성_응답 = bookshelfService.createBookshelf(이케아_책장_생성_요청);
 
         // then
-        assertThat(이케아_책장_생성_응답.getName()).isEqualTo(이케아_책장_생성_요청.getName());
-        assertThat(이케아_책장_생성_응답.getFloor()).isEqualTo(이케아_책장_생성_요청.getFloor());
+        assertThat(이케아_책장_생성_응답.getName()).isEqualTo("이케아 5단 책장");
+        assertThat(이케아_책장_생성_응답.getFloor()).isEqualTo(5);
 
         verify(bookshelfRepository, times(1)).save(any(Bookshelf.class));
     }
