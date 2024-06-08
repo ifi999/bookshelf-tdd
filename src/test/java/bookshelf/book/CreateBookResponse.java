@@ -1,5 +1,8 @@
 package bookshelf.book;
 
+import bookshelf.book.entity.Book;
+import bookshelf.book.entity.BookCategory;
+
 import java.time.LocalDate;
 
 public class CreateBookResponse {
@@ -10,6 +13,15 @@ public class CreateBookResponse {
     private String isbn;
     private LocalDate purchaseDate;
     private BookCategory bookCategory;
+
+    public CreateBookResponse(final Book book) {
+        this.id = book.getId();
+        this.title = book.getTitle();
+        this.author = book.getAuthor();
+        this.isbn = book.getIsbn();
+        this.purchaseDate = book.getPurchaseDate();
+        this.bookCategory = book.getBookCategory();
+    }
 
     public Long getId() {
         return id;

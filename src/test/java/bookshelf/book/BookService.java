@@ -1,5 +1,6 @@
 package bookshelf.book;
 
+import bookshelf.book.entity.Book;
 import bookshelf.booshelf.entity.Bookshelf;
 import bookshelf.booshelf.repository.BookshelfRepository;
 import org.springframework.stereotype.Service;
@@ -20,11 +21,12 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public CreateBookResponse createBook(final Long id, final CreateBookRequest request) {
-        final Bookshelf bookshelf = bookshelfRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Failed to get bookshelf. Invalid bookshelf id: " + id));
+    public CreateBookResponse createBook(final Long bookShelfId, final CreateBookRequest request) {
+        final Bookshelf bookshelf = bookshelfRepository.findById(bookShelfId).orElseThrow(
+                () -> new EntityNotFoundException("Failed to get bookshelf. Invalid bookshelf id: " + bookShelfId)
+        );
 
-        final Book book = request.toEntity();
-        final Book savedBook = bookRepository.save(book);
+        final Book savedBook = bookRepository.save(request.toEntity());
 
         bookshelf.addBook(savedBook);
 

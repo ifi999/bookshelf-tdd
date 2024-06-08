@@ -1,5 +1,8 @@
 package bookshelf.book;
 
+import bookshelf.book.entity.Book;
+import bookshelf.book.entity.BookCategory;
+
 import java.time.LocalDate;
 
 public class CreateBookRequest {
@@ -24,4 +27,13 @@ public class CreateBookRequest {
         this.bookCategory = bookCategory;
     }
 
+    public Book toEntity() {
+        return new Book(
+                this.title,
+                this.author,
+                this.isbn,
+                this.purchaseDate,
+                this.bookCategory
+        );
+    }
 }
