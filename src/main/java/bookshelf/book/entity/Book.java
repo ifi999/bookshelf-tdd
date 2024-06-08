@@ -34,7 +34,7 @@ public class Book {
     ) {
         Assert.hasText(title, "책 이름은 필수값입니다.");
         Assert.hasText(author, "저자는 필수값입니다.");
-        Assert.hasText(title, "ISBN은 필수값입니다.");
+        Assert.hasText(isbn, "ISBN은 필수값입니다.");
         Assert.isTrue(LocalDate.now().isAfter(purchaseDate), "구매일은 현재보다 과거여야합니다.");
         Assert.notNull(bookCategory, "카테고리는 필수값입니다.");
 
