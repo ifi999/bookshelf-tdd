@@ -207,4 +207,25 @@ public class BookServiceTest {
                 .hasMessage("구매일은 현재보다 과거여야합니다.");
     }
 
+    @Test
+    void 책을_생성할_경우_카테고리는_필수값이다() {
+        // given
+        final Bookshelf 이케아_책장 = bookshelfRepository.save(new Bookshelf("이케아 5단 책장", 5));
+
+        final CreateBookRequest 카테고리_null_생성_요청 = new CreateBookRequest(
+                "객체지향의 사실과 오해",
+                "조영호",
+                "9788998139766",
+                LocalDate.of(2023, 6, 1),
+                null
+        );
+
+        // when
+
+        // then
+        assertThatThrownBy(() -> bookService.createBook(이케아_책장.getId(), 카테고리_null_생성_요청))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("카테고리는 필수값입니다.");
+    }
+
 }
