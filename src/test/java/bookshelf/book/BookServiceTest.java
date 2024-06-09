@@ -2,7 +2,9 @@ package bookshelf.book;
 
 import bookshelf.book.dto.CreateBookRequest;
 import bookshelf.book.dto.CreateBookResponse;
+import bookshelf.book.entity.Book;
 import bookshelf.book.entity.BookCategory;
+import bookshelf.book.repository.BookRepository;
 import bookshelf.book.service.BookService;
 import bookshelf.booshelf.entity.Bookshelf;
 import bookshelf.booshelf.repository.BookshelfRepository;
@@ -25,6 +27,9 @@ public class BookServiceTest {
 
     @Autowired
     private BookshelfRepository bookshelfRepository;
+
+    @Autowired
+    private BookRepository bookRepository;
 
     @Test
     void 책을_생성한다() {
@@ -226,6 +231,29 @@ public class BookServiceTest {
         assertThatThrownBy(() -> bookService.createBook(이케아_책장.getId(), 카테고리_null_생성_요청))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("카테고리는 필수값입니다.");
+    }
+
+    @Test
+    void 책을_조회한다() {
+        // given
+        final Book 객사오 = bookRepository.save(new Book(
+                "객체지향의 사실과 오해",
+                "조영호",
+                "9788998139766",
+                LocalDate.of(2023, 6, 1),
+                BookCategory.IT
+        ));
+
+        // when
+        final GetBookResponse 객사오_조회_응답 = bookService.getBook(객사오.getId());
+
+        // then
+        assertThat(객사오_조회_응답.getId()).isEqualTo(객사오.getId()); // 이런 경우에는 실제값으로 비교하기 힘들지 않나?
+        assertThat(객사오_조회_응답.getTitle()).isEqualTo(객사오.getTitle());
+        assertThat(객사오_조회_응답.getAuthor()).isEqualTo(객사오.getAuthor());
+        assertThat(객사오_조회_응답.getIsbn()).isEqualTo(객사오.getIsbn());
+        assertThat(객사오_조회_응답.getPurchaseDate()).isEqualTo(객사오.getPurchaseDate());
+        assertThat(객사오_조회_응답.getBookCategory()).isEqualTo(객사오.getBookCategory());
     }
 
 }
