@@ -2,6 +2,7 @@ package bookshelf.book;
 
 import bookshelf.book.dto.CreateBookRequest;
 import bookshelf.book.dto.CreateBookResponse;
+import bookshelf.book.dto.GetBookResponse;
 import bookshelf.book.entity.Book;
 import bookshelf.book.entity.BookCategory;
 import bookshelf.book.repository.BookRepository;

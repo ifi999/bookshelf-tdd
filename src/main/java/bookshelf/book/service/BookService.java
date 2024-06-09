@@ -2,6 +2,7 @@ package bookshelf.book.service;
 
 import bookshelf.book.dto.CreateBookRequest;
 import bookshelf.book.dto.CreateBookResponse;
+import bookshelf.book.dto.GetBookResponse;
 import bookshelf.book.entity.Book;
 import bookshelf.book.repository.BookRepository;
 import bookshelf.booshelf.entity.Bookshelf;
@@ -34,5 +35,9 @@ public class BookService {
         bookshelf.addBook(savedBook);
 
         return new CreateBookResponse(savedBook);
+    }
+
+    public GetBookResponse getBook(final Long id) {
+        return null;
     }
 }
