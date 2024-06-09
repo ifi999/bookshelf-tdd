@@ -38,6 +38,10 @@ public class BookService {
     }
 
     public GetBookResponse getBook(final Long id) {
-        return null;
+        final Book book = bookRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Failed to get book. Invalid book id: " + id)
+        );
+
+        return GetBookResponse.toDto(book);
     }
 }
